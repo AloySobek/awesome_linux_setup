@@ -1,0 +1,53 @@
+---
+- name: install base vim
+  become: true
+  apt:
+    name: vim
+    state: latest
+    force_apt_get: true
+
+- name: gather stat about old vim configuration
+  become: true
+  stat:
+    path: "{{ vim_path }}/vim_runtime"
+  register: vim_old
+
+- name: remove old vim configuration if exist
+  become: true
+  file:
+    path: "{{ vim_path }}/vim_runtime"
+    state: absent
+  when: vim_old.stat.exists and vim_update
+  register: vim_removed
+
+- name: download vim configuration
+  become: true
+  git:
+    repo: https://github.com/amix/vimrc.git
+    dest: "{{ vim_path }}/vim_runtime"
+    depth: 1
+  when: not vim_old.stat.exists
+  when: vim_removed.changed
+
+- name: install vim configuration
+  become: true
+  shell:
+    cmd: "sh {{vim_path}}/vim_runtime/install_awesome_parameterized.sh {{ vim_path }}/vim_runtime {{ vim_users }}"
+    warn: false
+  when: vim_removed.changed
+
+- name: install additional plugins for vim
+  become: true
+  git:
+    repo: "{{ item.url }}"
+    dest: "{{ vim_path }}/vim_runtime/my_plugins/{{item.name}}"
+  loop:  "{{ vim_plugins }}"
+  when: vim_removed.changed
+
+- name: apply vim plugins changes
+  become: true
+  shell:
+    cmd: "{{ item }}"
+    warn: false
+  loop: "{{ vim_changes }}"
+  when: vim_removed.changed

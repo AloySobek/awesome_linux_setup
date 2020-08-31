@@ -1,0 +1,5 @@
+---
+# defaults file for ./deploy_base
+vim_path: "/opt"
+vim_users: "--all"
+vim_update: false

@@ -1,0 +1,7 @@
+---
+- name: install network tools
+  become: true 
+  apt:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ network_tools }}"

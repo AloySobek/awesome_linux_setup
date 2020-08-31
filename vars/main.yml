@@ -1,0 +1,49 @@
+---
+# vars file for ./deploy_base
+
+# vars for base task
+base_tools:
+  - git
+  - python3
+  - python3-pip
+  - curl
+  - unzip
+
+# vars for network task
+network_tools:
+  - net-tools
+  - iftop
+  - vnstat
+  - iptraf
+  - hping3
+  - dstat
+  - ufw
+
+# vars for monitoring task
+monitoring_tools:
+  - htop
+  - lm-sensors
+  - iotop
+  - sysstat
+  - smartmontools
+  - lshw
+  - collectl
+  - acct
+
+# vars for other task
+other_tools:
+  - nudoku
+
+# vars for vim task
+vim_plugins:
+  - url: "https://github.com/dracula/vim.git"
+    name: "dracula"
+  - url: "https://github.com/hashivim/vim-vagrant.git"
+    name: "vagrant_highlight"
+  - url: "https://github.com/hashivim/vim-terraform.git"
+    name: "terraform_highlight"
+
+vim_changes:
+  - "sed -i \"s/colorscheme.*/colorscheme dracula/g\" {{ vim_path }}/vim_runtime/vimrcs/extended.vim"
+  - "sed -i \"s/let g:NERDTreeWinPos.*/let g:NERDTreeWinPos = 'left'/g\" {{ vim_path }}/vim_runtime/vimrcs/plugins_config.vim"
+  - "sed -i '/colorscheme.*/a set number' {{ vim_path }}/vim_runtime/vimrcs/extended.vim"

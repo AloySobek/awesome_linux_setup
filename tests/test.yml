@@ -1,0 +1,5 @@
+---
+- hosts: aragorn
+  become: true
+  roles:
+    - ./deploy_base

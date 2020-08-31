@@ -1,0 +1,8 @@
+---
+- name: install monitoring tools
+  become: true
+  apt:
+    name: "{{ monitoring_tools }}"
+    state: latest
+  notify:
+    - restart acct

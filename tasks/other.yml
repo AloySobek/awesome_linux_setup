@@ -1,0 +1,7 @@
+---
+- name: install other tools
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ other_tools }}"

@@ -1,0 +1,32 @@
+---
+# tasks file for ./deploy_base
+
+- name: update before start
+  become: true
+  apt:
+    update_cache: true
+    cache_valid_time: 0
+    force_apt_get: true
+    upgrade: true
+
+- name: installation and configuring base tools...
+  include_tasks: base.yml
+
+- name: installation and configuring network tools...
+  include_tasks: network.yml
+
+- name: installation and configuring monitoring tools...
+  include_tasks: monitoring.yml
+
+- name: installation and configuring other tools...
+  include_tasks: other.yml
+
+- name: installation and configuring vim...
+  include_tasks: vim.yml
+
+- name: clean after finish
+  become: true
+  apt:
+    autoremove: true
+    autoclean: true
+    force_apt_get: true

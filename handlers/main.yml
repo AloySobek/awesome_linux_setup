@@ -1,0 +1,9 @@
+---
+# handlers file for ./deploy_base
+
+# handlers for monitoring task
+- name: restart acct
+  become: true
+  service:
+    name: acct
+    state: restarted

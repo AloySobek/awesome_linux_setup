@@ -1,0 +1,6 @@
+---
+- name: install base tools
+  become: true
+  apt:
+    name: "{{ base_tools }}"
+    state: latest
