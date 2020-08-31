@@ -14,15 +14,19 @@
 
 - name: installation and configuring network tools...
   include_tasks: network.yml
+  when: network_tools
 
 - name: installation and configuring monitoring tools...
   include_tasks: monitoring.yml
+  when: monitoring_tools
 
 - name: installation and configuring other tools...
   include_tasks: other.yml
+  when: other_tools
 
 - name: installation and configuring vim...
   include_tasks: vim.yml
+  when: vim
 
 - name: clean after finish
   become: true

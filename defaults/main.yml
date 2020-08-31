@@ -1,5 +1,20 @@
 ---
-# defaults file for ./deploy_base
+# defaults file for ./deploy_basj
+
+# default vars for base task
+
+
+# default vars for network tools
+network_tools: true
+
+# default vars for monitoring tools
+monitoring_tools: true
+
+# default vars for other tools
+other_tools: true
+
+# default vars for vim task
+vim: true
 vim_path: "/opt"
 vim_users: "--all"
 vim_update: false
